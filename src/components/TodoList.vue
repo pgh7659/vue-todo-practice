@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.complete}" v-on:click="toggleComplete(index)"></i>
         <span v-bind:class="{textCompleted: todoItem.complete}">{{todoItem.content}}</span>
@@ -8,7 +8,16 @@
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
-    </ul>
+    </transition-group>
+    <!-- <ul>
+      <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
+        <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.complete}" v-on:click="toggleComplete(index)"></i>
+        <span v-bind:class="{textCompleted: todoItem.complete}">{{todoItem.content}}</span>
+        <span class="removeBtn" v-on:click="removeTodo(index)">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+      </li>
+    </ul> -->
   </div>
 </template>
 
@@ -21,11 +30,6 @@ export default {
     },
     toggleComplete: function(toBeToggledIndex) {
       this.$emit('toggleComplete', toBeToggledIndex);
-    }
-  },
-  watch: {
-    propsdata: function() {
-      console.log(this.propsdata);
     }
   }
 }
@@ -68,5 +72,15 @@ export default {
   .removeBtn {
     margin-left: auto;
     color: #de4343;
+  }
+
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 1s ease;
+  }
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
 </style>

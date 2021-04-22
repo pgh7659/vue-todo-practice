@@ -20,7 +20,6 @@ export default {
     }
   },
   created: function() {
-    console.log(localStorage.getItem('todos'));
     this.todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : [];
   },
   components: {
