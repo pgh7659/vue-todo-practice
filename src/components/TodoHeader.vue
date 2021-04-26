@@ -3,14 +3,12 @@
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-  h1 {
-    color: #b2b2b2;
-    font-weight: 900;
-  }
+h1 {
+  color: #b2b2b2;
+  font-weight: 900;
+}
 </style>
