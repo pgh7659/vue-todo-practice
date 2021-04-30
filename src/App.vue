@@ -1,13 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodo="addTodoHandler"></TodoInput>
-    <TodoList
-      v-bind:propsdata="todos"
-      v-on:removeTodo="removeTodoHandler"
-      v-on:toggleComplete="toggleCompleteHandler"
-    ></TodoList>
-    <TodoFooter v-on:clear="clearHandler"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -18,15 +14,21 @@ import TodoInput from "./components/TodoInput.vue";
 import TodoFooter from "./components/TodoFooter.vue";
 
 export default {
-  data() {
-    return {
-      todos: []
-    };
-  },
-  created() {
-    this.todos = localStorage.getItem("todos")
-      ? JSON.parse(localStorage.getItem("todos"))
-      : [];
+  // data() {
+  //   return {
+  //     todos: []
+  //   };
+  // },
+  // vuex 적용
+  // created() {
+  //   this.todos = localStorage.getItem("todos")
+  //     ? JSON.parse(localStorage.getItem("todos"))
+  //     : [];
+  // },
+  computed: {
+    getStoreTodoItems() {
+      return this.$store.state.todoItems;
+    },
   },
   components: {
     TodoHeader,
@@ -35,37 +37,40 @@ export default {
     TodoFooter
   },
   methods: {
-    addTodoHandler(TobeAddedItemContent) {
-      this.todos = [
-        ...this.todos,
-        { content: TobeAddedItemContent, complete: false }
-      ];
-    },
-    removeTodoHandler(toBeDeletedIndex) {
-      const newTodos = this.todos.filter(
-        (item, index) => index !== toBeDeletedIndex
-      );
-      this.todos = newTodos;
-    },
-    toggleCompleteHandler(toBeToggledIndex) {
-      const renewTodos = this.todos.map((item, index) => {
-        if (index === toBeToggledIndex) {
-          item.complete = !item.complete;
-        }
+    // addTodoHandler(toBeAddedItemContent) {
+      // this.todos = [
+      //   ...this.todos,
+      //   { content: toBeAddedItemContent, complete: false }
+      // ];
+    // },
+    // removeTodoHandler(toBeDeletedIndex) {
+      // const newTodos = this.todos.filter(
+      //   (item, index) => index !== toBeDeletedIndex
+      // );
+      // this.todos = newTodos;
+    // },
+    // toggleCompleteHandler(toBeToggledIndex) {
+      // const renewTodos = this.todos.map((item, index) => {
+      //   if (index === toBeToggledIndex) {
+      //     item.complete = !item.complete;
+      //   }
 
-        return item;
-      });
+      //   return item;
+      // });
 
-      this.todos = renewTodos;
-    },
-    clearHandler() {
-      this.todos = [];
-    }
+      // this.todos = renewTodos;
+    // },
+    // clearHandler() {
+      // this.todos = [];
+    // }
   },
   watch: {
-    todos() {
-      // localStorage 저장
-      localStorage.setItem("todos", JSON.stringify(this.todos));
+    // todos() {
+    //   // localStorage 저장
+    //   localStorage.setItem("todos", JSON.stringify(this.todos));
+    // },
+    getStoreTodoItems(val) {
+      localStorage.setItem("todos", JSON.stringify(val));
     }
   }
 };

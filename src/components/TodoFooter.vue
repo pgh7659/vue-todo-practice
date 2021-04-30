@@ -8,7 +8,8 @@
 export default {
   methods: {
     clear() {
-      this.$emit("clear");
+      // this.$emit("clear");
+      this.$store.commit('clean');
     }
   }
 };

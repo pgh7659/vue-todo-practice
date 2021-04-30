@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-      <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
+      <li v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="index">
         <i
           class="checkBtn fas fa-check"
           v-bind:class="{ checkBtnCompleted: todoItem.complete }"
@@ -15,6 +15,7 @@
         </span>
       </li>
     </transition-group>
+    <!-- transition 적용 전 code -->
     <!-- <ul>
       <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.complete}" v-on:click="toggleComplete(index)"></i>
@@ -29,13 +30,15 @@
 
 <script>
 export default {
-  props: ["propsdata"],
+  // props: ["propsdata"],
   methods: {
     removeTodo(toBeDeletedIndex) {
-      this.$emit("removeTodo", toBeDeletedIndex);
+      // this.$emit("removeTodo", toBeDeletedIndex);
+      this.$store.commit('removeItem', toBeDeletedIndex);
     },
     toggleComplete(toBeToggledIndex) {
-      this.$emit("toggleComplete", toBeToggledIndex);
+      // this.$emit("toggleComplete", toBeToggledIndex);
+      this.$store.commit('toggleItem', toBeToggledIndex);
     }
   }
 };

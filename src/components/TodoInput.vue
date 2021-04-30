@@ -32,12 +32,14 @@ export default {
   },
   methods: {
     addTodo() {
-      if (this.newTodoValue) {
-        this.$emit("addTodo", this.newTodoValue);
-        this.clearInput();
-      } else {
+      if(!this.newTodoValue) {
         this.showModal = true;
+        return;
       }
+
+      // this.$emit("addTodo", this.newTodoValue);
+      this.$store.commit('addItem', this.newTodoValue);
+      this.clearInput();
     },
     clearInput() {
       this.newTodoValue = "";
