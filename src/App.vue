@@ -12,23 +12,11 @@ import TodoHeader from "./components/TodoHeader.vue";
 import TodoList from "./components/TodoList.vue";
 import TodoInput from "./components/TodoInput.vue";
 import TodoFooter from "./components/TodoFooter.vue";
+import { mapState } from 'vuex';
 
 export default {
-  // data() {
-  //   return {
-  //     todos: []
-  //   };
-  // },
-  // vuex 적용
-  // created() {
-  //   this.todos = localStorage.getItem("todos")
-  //     ? JSON.parse(localStorage.getItem("todos"))
-  //     : [];
-  // },
   computed: {
-    getStoreTodoItems() {
-      return this.$store.state.todoItems;
-    },
+    ...mapState(['todoItems']),
   },
   components: {
     TodoHeader,
@@ -36,42 +24,10 @@ export default {
     TodoInput,
     TodoFooter
   },
-  methods: {
-    // addTodoHandler(toBeAddedItemContent) {
-      // this.todos = [
-      //   ...this.todos,
-      //   { content: toBeAddedItemContent, complete: false }
-      // ];
-    // },
-    // removeTodoHandler(toBeDeletedIndex) {
-      // const newTodos = this.todos.filter(
-      //   (item, index) => index !== toBeDeletedIndex
-      // );
-      // this.todos = newTodos;
-    // },
-    // toggleCompleteHandler(toBeToggledIndex) {
-      // const renewTodos = this.todos.map((item, index) => {
-      //   if (index === toBeToggledIndex) {
-      //     item.complete = !item.complete;
-      //   }
-
-      //   return item;
-      // });
-
-      // this.todos = renewTodos;
-    // },
-    // clearHandler() {
-      // this.todos = [];
-    // }
-  },
   watch: {
-    // todos() {
-    //   // localStorage 저장
-    //   localStorage.setItem("todos", JSON.stringify(this.todos));
-    // },
-    getStoreTodoItems(val) {
+    todoItems(val) {
       localStorage.setItem("todos", JSON.stringify(val));
-    }
+    },
   }
 };
 </script>

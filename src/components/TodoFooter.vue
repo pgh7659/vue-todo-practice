@@ -5,12 +5,12 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex';
 export default {
   methods: {
-    clear() {
-      // this.$emit("clear");
-      this.$store.commit('clean');
-    }
+    ...mapMutations({
+      clear: 'clean'
+    }),
   }
 };
 </script>

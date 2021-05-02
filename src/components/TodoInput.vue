@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoValue" v-on:keyup.enter="addTodo" />
+    <input type="text" v-model="newTodoValue" v-on:keypress.enter="addTodo" />
     <span class="addContainer">
       <i class="fas fa-plus addBtn" v-on:click="addTodo"></i>
     </span>
@@ -37,7 +37,6 @@ export default {
         return;
       }
 
-      // this.$emit("addTodo", this.newTodoValue);
       this.$store.commit('addItem', this.newTodoValue);
       this.clearInput();
     },
